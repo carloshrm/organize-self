@@ -4,21 +4,65 @@
 }
 
 #main_container {
+  display: flex;
   width: 100vw;
-  height: 100vh;
+}
+#project_select {
+  flex: 0.2;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem 0 1rem;
+  min-width: max-content;
+  background-color: aliceblue;
+}
+#add_project_button {
+  margin-top: auto;
+}
+#project_header {
+  display: flex;
+  align-self: stretch;
+  padding: 1rem;
+  justify-content: space-between;
+  background-color: beige;
+}
+#add_project_container {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 2fr 0.5fr;
+  align-items: center;
+  justify-items: center;
+  padding: 1rem;
+  min-width: max-content;
+  background-color: rgb(255, 255, 255);
+  border-radius: 1rem;
+}
+#project_list {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.add_project_container_hidden {
+  visibility: hidden;
+}
+a {
+  padding: 1rem 0 1rem 0;
 }
 
-#todo_container {
+.project_container {
+  flex: 1;
   display: flex;
-  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: rgb(127, 150, 255);
 }
 
 .todo_task {
-  margin: 0.2rem;
-  max-width: 50%;
+  margin: 0.4rem;
+  max-width: 60%;
   min-width: min-content;
   background-color: rgb(155, 182, 184);
 }
