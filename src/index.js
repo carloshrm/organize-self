@@ -2,7 +2,7 @@ import { add, formatISO, toDate, parse } from "date-fns";
 
 const dom = {
   projectShelf: document.getElementById("project_list"),
-  projectContainer: document.getElementById("project_container"),
+  projectTaskContainer: document.getElementById("project_container"),
   projectAddForm: document.getElementById("add_project_container"),
   projectAddNameIn: document.getElementById("project_name_form"),
   projectLinks: document.querySelectorAll("a"),
@@ -37,19 +37,32 @@ const dom = {
         `;
     dom.projectShelf.appendChild(singleTask);
   },
-  appendProject: (project, id) => {
+  appendProject: (id) => {
     const myProject = document.createElement("a");
     myProject.href = "";
     myProject.id = id;
-    myProject.innerText = `${project.projectName}`;
+    myProject.innerText = `${Project.myProjects[id].projectName}`;
     myProject.addEventListener("click", swapProject);
     dom.projectShelf.appendChild(myProject);
+    dom.projectShelf.appendChild(dom.makeProjectDeleteButton(id));
     dom.projectAddNameIn.value = "";
   },
-  renderProject: (project) => {
-    dom.projectTitle.innerText = project.projectName;
-    project.taskList.forEach((x) => console.log(x));
+  makeProjectDeleteButton: (id) => {
+    const deleteButton = document.createElement("button");
+    deleteButton.innerText = "X";
+    deleteButton.id = `${id}_del_button`;
+    deleteButton.addEventListener("click", deleteProject);
+    return deleteButton;
   },
+  renderProject: (projectID) => {
+    const projectObject = Project.myProjects[projectID];
+    dom.projectTitle.innerText = projectObject.projectName;
+    const button = dom.projectTitle.parentNode.querySelector("button");
+    button.id = `${projectID}`;
+    // run render tasks, fill container
+    projectObject.taskList.forEach((x) => console.log(x));
+  },
+  renderList: () => {},
   eventListeners: () => {
     document
       .getElementById("add_project_button")
@@ -75,6 +88,11 @@ class Task {
   }
 }
 
+function deleteProject() {
+  delete Project.myProjects[this.id[0]];
+  Project.readProjects();
+}
+
 function getTodayDate() {
   let now = formatISO(Date.now(), { representation: "date" });
   return now;
@@ -87,11 +105,14 @@ class Project {
     this.projectName = projectName;
     this.taskList = [];
   }
-  addTask = (task) => {
+  addTask(task) {
     this.taskList.push(task);
-  };
+  }
   static readProjects() {
-    this.myProjects.forEach((x) => dom.appendProject(x));
+    dom.projectShelf.innerHTML = "";
+    for (const key in Project.myProjects) {
+      dom.appendProject(key);
+    }
   }
 }
 
@@ -102,7 +123,7 @@ function newProject(e) {
   let defaultTask = new Task(getTodayDate, "Empty Task", "description", 0);
   project.addTask(defaultTask);
   Project.myProjects[Project.idCount] = project;
-  dom.appendProject(project, Project.idCount);
+  dom.appendProject(Project.idCount);
   projectFormVisibility();
   Project.idCount++;
 }
@@ -112,6 +133,5 @@ function projectFormVisibility() {
 
 function swapProject(e) {
   e.preventDefault();
-  console.log(e);
-  dom.renderProject(Project.myProjects[this.id]);
+  dom.renderProject(this.id);
 }
