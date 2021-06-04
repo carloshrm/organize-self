@@ -8,8 +8,19 @@
     <title>Organize-Self</title>
   </head>
   <body>
+    <header>Todo</header>
     <div id="main_container">
-      <div id="todo_container">
+      <div id="project_select">
+        <div id="project_list">
+          <a href="">Default project</a>
+        </div>
+        <button id="add_project_button">Add project</button>
+      </div>
+      <div class="project_container">
+        <div id="project_header">
+          <p id="project_title">Project Title / Default project</p>
+          <button id="add_task">add task</button>
+        </div>
         <div class="todo_task" id="">
           <table>
             <tr>
@@ -37,6 +48,18 @@
         </div>
       </div>
     </div>
-    <script src="main.js"></script>
+    <div id="add_project_container" class="add_project_container_hidden">
+      <p>Add a new project:</p>
+      <input
+        type="text"
+        name="project_name_form"
+        id="project_name_form"
+        placeholder="Project Name"
+      />
+      <button id="confirm_project">Submit</button>
+
+      <button id="cancel_project">Cancel</button>
+    </div>
+    <script src="./main.js"></script>
   </body>
 </html>
