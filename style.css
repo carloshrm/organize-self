@@ -4,11 +4,11 @@
 }
 
 #main_container {
-  display: flex;
   width: 100vw;
 }
 #project_select {
-  flex: 0.2;
+  position: absolute;
+  left: 0;
   display: flex;
   flex-direction: column;
   padding: 0 1rem 0 1rem;
@@ -25,7 +25,12 @@
   justify-content: space-between;
   background-color: beige;
 }
-#add_project_container {
+#project_list {
+  display: grid;
+  grid-template-columns: 1fr 0.2fr;
+}
+#add_project_container,
+#add_task_container {
   position: absolute;
   top: 30%;
   left: 50%;
@@ -40,18 +45,19 @@
   background-color: rgb(255, 255, 255);
   border-radius: 1rem;
 }
-#project_list {
-  display: grid;
-  grid-template-columns: 1fr 0.2fr;
-}
+
 .add_project_container_hidden {
   visibility: hidden;
 }
+.add_task_container_hidden {
+  visibility: hidden;
+}
+
 a {
   padding: 1rem 0 1rem 0;
 }
 
-.project_tasks_container {
+#project_tasks_container {
   flex: 1;
   display: flex;
   flex-direction: column;
