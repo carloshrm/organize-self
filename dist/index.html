@@ -11,54 +11,49 @@
     <header>Todo</header>
     <div id="main_container">
       <div id="project_select">
-        <div id="project_list">
-          <a href="">Default project</a>
-        </div>
+        <div id="project_list"></div>
         <button id="add_project_button">Add project</button>
       </div>
-      <div class="project_tasks_container">
-        <div id="project_header">
-          <p id="project_title">Project Title / Default project</p>
-          <button id="" class="add_task_button">add task</button>
-        </div>
-        <div class="todo_task" id="">
-          <table>
-            <tr>
-              <th colspan="2" id="task_title">Task Title</th>
-            </tr>
-            <tr>
-              <td id="task_desc">
-                A description. Lorem ipsum dolor sit amet consectetur,
-                adipisicing elit. Quaerat, doloremque sequi. Assumenda, ullam
-                dolore, praesentium debitis nobis optio hic eveniet velit ea
-                delectus sapiente dicta nihil aliquid. Alias, culpa velit.
-              </td>
-              <td>
-                <button id="edit_button">Edit</button>
-                <button id="delete_button">Delete</button>
-              </td>
-            </tr>
-            <tr>
-              <td id="date_made">Created 10/10/2010</td>
-              <th id="date_due">
-                due 20/0/2020<button id="done_button">Done</button>
-              </th>
-            </tr>
-          </table>
-        </div>
+      <div id="project_header">
+        <p id="project_title">Project Title</p>
+        <button id="add_task_button">add task</button>
       </div>
+      <div id="project_tasks_container"></div>
     </div>
-    <div id="add_project_container" class="add_project_container_hidden">
+    <div id="add_project_container">
       <p>Add a new project:</p>
       <input
         type="text"
         name="project_name_form"
         id="project_name_form"
         placeholder="Project Name"
+        required
       />
       <button id="confirm_project">Submit</button>
 
       <button id="cancel_project">Cancel</button>
+    </div>
+    <div id="add_task_container" class="add_task_container_hidden">
+      <p>Add a new task:</p>
+      <input
+        type="text"
+        name="title_form"
+        id="title_form"
+        placeholder="Task Title"
+        required
+      />
+      <input
+        type="text"
+        name="desc_form"
+        id="desc_form"
+        placeholder="Task Description"
+        required
+      />
+      <label for="dateDue_form">Date Due: </label>
+      <input type="date" name="dateDue" id="dateDue_form" required />
+      <button id="confirm_task">Add</button>
+
+      <button id="cancel_task">Cancel</button>
     </div>
     <script src="./main.js"></script>
   </body>
