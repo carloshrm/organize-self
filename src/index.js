@@ -25,8 +25,11 @@ function listeners() {
   document
     .getElementById("cancel_task")
     .addEventListener("click", dom.taskFormVisibility);
-  dom.projectLinks.forEach((a) => a.addEventListener("click", swapProject));
+  dom.projectShelf
+    .querySelectorAll("p")
+    .forEach((a) => a.addEventListener("click", swapProject));
 }
-console.log(dom);
 listeners();
 Project.newProject("", "example");
+Project.newProject("", "hey there project");
+Project.newProject("", "class 102938");

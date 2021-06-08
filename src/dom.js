@@ -6,7 +6,6 @@ const dom = {
   projectTaskContainer: document.getElementById("project_container"),
   projectAddForm: document.getElementById("add_project_container"),
   projectAddNameIn: document.getElementById("project_name_form"),
-  projectLinks: document.querySelectorAll("a"),
   projectTitle: document.getElementById("project_title"),
   addTaskButton: document.getElementById("add_task"),
   addTaskForm: document.getElementById("add_task_container"),
@@ -48,15 +47,15 @@ const dom = {
     dom.taskShelf.appendChild(singleTask);
   },
   appendProject: (id) => {
-    const myProject = document.createElement("a");
-    myProject.href = "";
-    myProject.dataset.project = id;
-    myProject.innerText = `${Project.myProjects[id].projectName}`;
-    myProject.addEventListener("click", Project.swapProject);
-    dom.projectShelf.appendChild(myProject);
-    dom.projectShelf.appendChild(dom.makeProjectDeleteButton(id));
+    const projTab = document.createElement("div");
+    projTab.className = "project_tab";
+    projTab.dataset.project = id;
+    projTab.innerHTML = `<p>${Project.myProjects[id].projectName}</p>`;
+    projTab.addEventListener("click", Project.swapProject);
+    projTab.appendChild(dom.makeProjectDeleteButton(id));
+    dom.projectShelf.appendChild(projTab);
     dom.projectAddNameIn.value = "";
-    myProject.click();
+    projTab.click();
   },
   makeProjectDeleteButton: (id) => {
     const deleteButton = document.createElement("button");

@@ -27,6 +27,10 @@ class Project {
       0
     );
     project.addTask(defaultTask);
+    project.addTask(defaultTask);
+    project.addTask(defaultTask);
+    project.addTask(defaultTask);
+    project.addTask(defaultTask);
     Project.myProjects[Project.idCount] = project;
     dom.appendProject(Project.idCount);
     dom.projectFormVisibility();
