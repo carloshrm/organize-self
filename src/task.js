@@ -10,7 +10,7 @@ class Task {
     this.title = title;
     this.desc = desc;
     this.priority = priority;
-    this.status = 0;
+    this.status = false;
     this.dateMade = formatISO(Date.now(), { representation: "date" });
   }
   static makeNewTask(e) {
@@ -23,11 +23,16 @@ class Task {
         return;
       }
       task[form[i].name] = form[i].value;
-      form[i].value = "";
     }
     dom.taskFormVisibility();
+    form.forEach((x) => (x.value = ""));
     Project.myProjects[Project.activeProject].addTask(task);
     dom.displayProjectContents(Project.activeProject);
+  }
+  editTask() {
+    const form = document.getElementById("edit_task_container");
+    for (const key in this) {
+    }
   }
 }
 

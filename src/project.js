@@ -12,6 +12,9 @@ class Project {
   addTask(task) {
     this.taskList.push(task);
   }
+  deleteTask(taskID) {
+    console.log(this.taskList);
+  }
   static deleteProject(id) {
     delete Project.myProjects[id];
     dom.refreshList();

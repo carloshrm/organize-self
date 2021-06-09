@@ -8,6 +8,8 @@
     <title>Organize-Self</title>
   </head>
   <body>
+
+    </table>        
     <header>Todo</header>
     <div id="main_container">
       <div id="project_select">
@@ -54,6 +56,18 @@
       <button id="confirm_task">Add</button>
 
       <button id="cancel_task">Cancel</button>
+    </div>
+    <div id="edit_task_container" class="edit_task_container_hidden">
+      <input      type="text"      name="title"     
+    />
+    <input
+      type="text"
+      name="desc"      
+      
+    />    
+    <input type="date" name="dateDue" id="dateDue_form" required />
+    <button id="confirm_task">Add</button>
+    <button id="cancel_task">Cancel</button>
     </div>
     <script src="./main.js"></script>
   </body>

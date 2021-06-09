@@ -9,41 +9,63 @@ const dom = {
   projectTitle: document.getElementById("project_title"),
   addTaskButton: document.getElementById("add_task"),
   addTaskForm: document.getElementById("add_task_container"),
-  appendTask: (currentTask, id) => {
+  taskDelete: document.getElementById("task_delete_button"),
+  taskEdit: document.getElementById("task_edit_button"),
+  appendTask: (currentTask, taskID, projectID) => {
     const singleTask = document.createElement("div");
-    singleTask.dataset.taskID = `${id}_${currentTask.title}`;
+    singleTask.dataset.task_id = taskID;
+    singleTask.dataset.project = projectID;
     singleTask.className = "todo_task";
     singleTask.innerHTML = `        
             <table>
               <tr>
-                <th colspan="2" id="task_title">${currentTask.title}</th>
-              </tr>
-              <tr>
-                <td id="task_desc">
-                  ${currentTask.desc}
-  
-                </td>
+                <th colspan="2" id="task_title">
+                ${currentTask.title}
                 <td>
-                  <button id="task_edit_button">Edit</button>
-                  <button id="task_delete_button">Delete</button>
+                <button class="edit_button">Edit</button>
+                <button class="delete_button">Delete</button></th>
                 </td>
               </tr>
               <tr>
-                <td id="date_made"><span>Created on ${
-                  currentTask.dateMade
-                }</span>
-                <span>Status: ${
-                  currentTask.status ? "Complete" : "Pending"
-                }</span>
+                <td colspan="3" id="task_desc">
+                  ${currentTask.desc}  
+                </td>                
+              </tr>
+              <tr>
+                <td id="date_made">Created on ${currentTask.dateMade}</td>
+                <td>
+                Status: ${currentTask.status ? "Done!" : "Pending"}
+                ${
+                  currentTask.status
+                    ? " "
+                    : `<button class="done_button">Done</button>`
+                }         
                 </td>
                 <th id="date_due">
-                  Due on: ${
-                    currentTask.dateDue
-                  }<button id="done_button">Done</button>
+                  Due on: ${currentTask.dateDue}
                 </th>
               </tr>
             </table>        
           `;
+    if (!currentTask.status) {
+      singleTask
+        .querySelector(".done_button")
+        .addEventListener("click", (e) => {
+          console.log(Project.myProjects[projectID].taskList[taskID].status);
+          Project.myProjects[projectID].taskList[taskID].status = true;
+          e.target.parentNode.innerHTML = "Status: Done!";
+          e.target.remove();
+        });
+    }
+    singleTask
+      .querySelector(".delete_button")
+      .addEventListener("click", (e) => {
+        Project.myProjects[projectID].taskList.splice(taskID, 1);
+        dom.displayProjectContents(projectID);
+      });
+    singleTask.querySelector(".edit_button").addEventListener("click", (e) => {
+      Project.myProjects[projectID].taskList[taskID].editTask();
+    });
     dom.taskShelf.appendChild(singleTask);
   },
   appendProject: (id) => {
@@ -77,8 +99,8 @@ const dom = {
     const projectObject = Project.myProjects[projectID];
     dom.projectTitle.innerText = projectObject.projectName;
     dom.taskShelf.innerHTML = "";
-    projectObject.taskList.forEach((x) => {
-      dom.appendTask(x, projectID);
+    projectObject.taskList.forEach((x, ind) => {
+      dom.appendTask(x, ind, projectID);
     });
   },
   refreshList: () => {
