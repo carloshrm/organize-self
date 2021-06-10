@@ -2,6 +2,10 @@ const path = require("path");
 module.exports = {
   entry: "./src/index.js",
   watch: true,
+  watchOptions: {
+    poll: 1000,
+    ignored: "**/node_modules",
+  },
   mode: "development",
   output: {
     filename: "main.js",

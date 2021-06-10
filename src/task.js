@@ -1,9 +1,10 @@
 import { add, formatISO, toDate, parse } from "date-fns";
+import { el } from "date-fns/locale";
 import dom from "./dom.js";
-import Project from "./Project.js";
+import Project from "./project.js";
 
 class Task {
-  constructor(dateDue, title, desc, priority) {
+  constructor(dateDue, title, desc, priority, id) {
     if (dateDue !== "" && dateDue !== undefined)
       dateDue = formatISO(dateDue, { representation: "date" });
     this.dateDue = dateDue;
@@ -12,6 +13,7 @@ class Task {
     this.priority = priority;
     this.status = false;
     this.dateMade = formatISO(Date.now(), { representation: "date" });
+    this.id = 0;
   }
   static makeNewTask(e) {
     e.preventDefault();
@@ -29,9 +31,31 @@ class Task {
     Project.myProjects[Project.activeProject].addTask(task);
     dom.displayProjectContents(Project.activeProject);
   }
-  editTask() {
-    const form = document.getElementById("edit_task_container");
-    for (const key in this) {
+  static editTask(taskObject) {
+    dom.taskEditVisibility();
+    dom.taskEditForm.querySelectorAll("input").forEach((x) => {
+      if (x.type === "checkbox") {
+        x.checked = taskObject[x.name];
+      } else {
+        x.value = taskObject[x.name];
+      }
+    });
+    dom.taskEditConfirm.addEventListener("click", updateTask);
+    function updateTask() {
+      dom.taskEditForm.querySelectorAll("input").forEach((x) => {
+        console.log(x.value);
+        if (x.name === "dateMade") return;
+        if (x.type !== "checkbox") {
+          taskObject[x.name] = x.value;
+          x.value = "";
+        } else {
+          taskObject[x.name] = x.checked;
+          x.checked = false;
+        }
+        dom.displayProjectContents(Project.activeProject);
+      });
+      dom.taskEditVisibility();
+      dom.taskEditConfirm.removeEventListener("click", updateTask);
     }
   }
 }

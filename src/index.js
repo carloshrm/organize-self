@@ -1,7 +1,7 @@
 import { add, formatISO, toDate, parse } from "date-fns";
 import dom from "./dom.js";
 import Task from "./task.js";
-import Project from "./Project.js";
+import Project from "./project.js";
 
 function listeners() {
   document.getElementById("dateDue_form").min = formatISO(Date.now(), {
@@ -27,9 +27,10 @@ function listeners() {
     .addEventListener("click", dom.taskFormVisibility);
   dom.projectShelf
     .querySelectorAll("p")
-    .forEach((a) => a.addEventListener("click", swapProject));
+    .forEach((a) => a.addEventListener("click", Project.swapProject));
+  document
+    .getElementById("cancel_changes")
+    .addEventListener("click", dom.taskEditVisibility);
 }
 listeners();
-Project.newProject("", "example");
-Project.newProject("", "hey there project");
-Project.newProject("", "class 102938");
+Project.newProject("", "Example");

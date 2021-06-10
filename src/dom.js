@@ -1,4 +1,5 @@
-import Project from "./Project.js";
+import Project from "./project.js";
+import Task from "./task.js";
 
 const dom = {
   projectShelf: document.getElementById("project_list"),
@@ -11,11 +12,12 @@ const dom = {
   addTaskForm: document.getElementById("add_task_container"),
   taskDelete: document.getElementById("task_delete_button"),
   taskEdit: document.getElementById("task_edit_button"),
+  taskEditForm: document.getElementById("edit_task_container"),
+  taskEditConfirm: document.getElementById("confirm_changes"),
   appendTask: (currentTask, taskID, projectID) => {
     const singleTask = document.createElement("div");
-    singleTask.dataset.task_id = taskID;
-    singleTask.dataset.project = projectID;
     singleTask.className = "todo_task";
+    singleTask.dataset.task_id = taskID;
     singleTask.innerHTML = `        
             <table>
               <tr>
@@ -64,17 +66,17 @@ const dom = {
         dom.displayProjectContents(projectID);
       });
     singleTask.querySelector(".edit_button").addEventListener("click", (e) => {
-      Project.myProjects[projectID].taskList[taskID].editTask();
+      Task.editTask(currentTask);
     });
     dom.taskShelf.appendChild(singleTask);
   },
-  appendProject: (id) => {
+  displayProjectTab: (projectObject) => {
     const projTab = document.createElement("div");
     projTab.className = "project_tab";
-    projTab.dataset.project = id;
-    projTab.innerHTML = `<p>${Project.myProjects[id].projectName}</p>`;
+    projTab.dataset.project = projectObject.id;
+    projTab.innerHTML = `<p>${projectObject.projectName}</p>`;
     projTab.addEventListener("click", Project.swapProject);
-    projTab.appendChild(dom.makeProjectDeleteButton(id));
+    projTab.appendChild(dom.makeProjectDeleteButton(projectObject.id));
     dom.projectShelf.appendChild(projTab);
     dom.projectAddNameIn.value = "";
     projTab.click();
@@ -83,15 +85,17 @@ const dom = {
     const deleteButton = document.createElement("button");
     deleteButton.innerText = "X";
     deleteButton.id = "project_delete_button";
-    deleteButton.dataset.project = id;
     deleteButton.addEventListener("click", (e) => {
+      e.stopPropagation();
       if (
-        id !== 1 &&
+        Object.keys(Project.myProjects) !== 0 &&
         confirm(
           "Are you sure you want to delete this project and all its tasks?"
         )
-      )
-        Project.deleteProject(e.target.dataset.project);
+      ) {
+        delete Project.myProjects[id];
+        dom.refreshList();
+      }
     });
     return deleteButton;
   },
@@ -106,7 +110,7 @@ const dom = {
   refreshList: () => {
     dom.projectShelf.innerHTML = "";
     for (const key in Project.myProjects) {
-      dom.appendProject(key);
+      dom.displayProjectTab(Project.myProjects[key]);
     }
   },
   projectFormVisibility: () => {
@@ -114,6 +118,9 @@ const dom = {
   },
   taskFormVisibility: () => {
     dom.addTaskForm.classList.toggle("add_task_container_hidden");
+  },
+  taskEditVisibility: () => {
+    dom.taskEditForm.classList.toggle("edit_task_container_hidden");
   },
 };
 export default dom;
