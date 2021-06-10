@@ -8,8 +8,6 @@
     <title>Organize-Self</title>
   </head>
   <body>
-
-    </table>        
     <header>Todo</header>
     <div id="main_container">
       <div id="project_select">
@@ -32,7 +30,6 @@
         required
       />
       <button id="confirm_project">Submit</button>
-
       <button id="cancel_project">Cancel</button>
     </div>
     <div id="add_task_container" class="add_task_container_hidden">
@@ -54,20 +51,21 @@
       <label for="dateDue_form">Date Due: </label>
       <input type="date" name="dateDue" id="dateDue_form" required />
       <button id="confirm_task">Add</button>
-
       <button id="cancel_task">Cancel</button>
     </div>
     <div id="edit_task_container" class="edit_task_container_hidden">
-      <input      type="text"      name="title"     
-    />
-    <input
-      type="text"
-      name="desc"      
-      
-    />    
-    <input type="date" name="dateDue" id="dateDue_form" required />
-    <button id="confirm_task">Add</button>
-    <button id="cancel_task">Cancel</button>
+      <label for="title">Title: </label>
+      <input type="text" name="title" />
+      <label for="desc">Description: </label>
+      <input type="text" name="desc" />
+      <label for="dateMade">Date Made:</label>
+      <input type="date" name="dateMade" disabled />
+      <label for="dateDue">Date Due:</label>
+      <input type="date" name="dateDue" />
+      <label for="status">Status: </label>
+      <input type="checkbox" name="status" />
+      <button id="confirm_changes">OK</button>
+      <button id="cancel_changes">Cancel</button>
     </div>
     <script src="./main.js"></script>
   </body>

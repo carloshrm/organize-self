@@ -47,7 +47,8 @@ button {
   background-color: rgb(19, 187, 75);
 }
 #add_project_container,
-#add_task_container {
+#add_task_container,
+#edit_task_container {
   position: absolute;
   top: 30%;
   left: 50%;
@@ -68,6 +69,9 @@ button {
   visibility: hidden;
 }
 .add_task_container_hidden {
+  visibility: hidden;
+}
+.edit_task_container_hidden {
   visibility: hidden;
 }
 
