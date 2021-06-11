@@ -5,18 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Organize-Self</title>
+    <title>Taskbook</title>
   </head>
   <body>
-    <header>Todo</header>
     <div id="main_container">
       <div id="project_select">
         <button id="add_project_button">Add project</button>
         <div id="project_list"></div>
-      </div>
-      <div id="project_header">
-        <p id="project_title">Project Title</p>
-        <button id="add_task_button">add task</button>
+        <div id="project_header">
+          <span id="project_title">Project Title</span>
+          <button id="add_task_button">add task</button>
+        </div>
       </div>
       <div id="project_tasks_container"></div>
     </div>
@@ -67,6 +66,7 @@
       <button id="confirm_changes">OK</button>
       <button id="cancel_changes">Cancel</button>
     </div>
+
     <script src="./main.js"></script>
   </body>
 </html>

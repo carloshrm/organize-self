@@ -1,50 +1,119 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat&family=Permanent+Marker&display=swap");
+
+:root {
+  --color_1: #a8a8a8;
+  --color_2: #dcdcdd;
+  --color_3: #3e4957;
+  --color_4: #174642;
+  --color_5: #1d2424;
+}
 * {
   padding: 0;
   margin: 0;
 }
 button {
-  border: 1px dotted gray;
+  border: 1px solid var(--color_4);
   background-color: white;
   padding: 0 1rem;
+  font-family: "Caveat", cursive;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
 }
-
+body {
+  font-family: "Caveat", cursive;
+  font-size: 22px;
+  color: white;
+  /* font-family: 'Caveat', cursive;
+  font-family: 'Permanent Marker', cursive; */
+  background-color: var(--color_2);
+}
+h3 {
+  font-weight: normal;
+  font-family: "Permanent Marker", cursive;
+  margin-right: 2rem;
+}
+h4 {
+  margin: 0 0.4rem 0 auto;
+  padding: 0.4rem 1rem;
+  width: max-content;
+  box-shadow: 0px 0px 6px rgba(11, 27, 37, 0.473);
+  background-color: #143030;
+}
+h5 {
+  font-weight: normal;
+}
+#task_desc {
+  margin: 1rem;
+}
+#title_div {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+#title_div button {
+  margin: 0 0.2rem;
+}
+#status_div {
+  display: flex;
+}
 #main_container {
   width: 100%;
+}
+@media (min-width: 600px) {
+  #main_container {
+    width: 80%;
+    margin: 0 auto;
+    height: 100%;
+  }
 }
 #project_select {
   position: sticky;
   top: 0;
+  background-color: var(--color_2);
 }
 #add_project_button {
   border-radius: 0 0 1rem 1rem;
   padding: 0.6rem;
   margin: 0 0.2rem 1rem 1rem;
 }
+.done_button {
+  margin-left: auto;
+}
 #project_list {
   display: flex;
+  flex-wrap: wrap;
 }
 .project_tab {
   flex: 1;
   display: flex;
   border: 1px solid black;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
   padding: 0 1rem;
   border-radius: 1rem 1rem 0 0;
+  background-color: var(--color_1);
 }
 .project_tab p {
   padding: 0 0.2rem;
   margin: 0.4rem;
 }
+.project_tab_selected {
+  background-color: var(--color_3);
+}
 #project_delete_button {
-  padding: 0 1rem 0.3rem 1rem;
+  padding: 0.2rem 1rem;
+  border-top: unset;
+  color: #b90000;
   margin-bottom: auto;
+  font-size: 10px;
 }
 #project_header {
   display: flex;
+  align-items: center;
   justify-content: space-around;
   padding: 0.2rem 0;
-  background-color: rgb(19, 187, 75);
+  background-color: var(--color_3);
 }
 #add_project_container,
 #add_task_container,
@@ -61,10 +130,9 @@ button {
   padding: 1rem;
   min-width: max-content;
   max-width: 10%;
-  background-color: rgb(255, 255, 255);
   border-radius: 1rem;
+  background-color: #d0c3bd;
 }
-
 .add_project_container_hidden {
   visibility: hidden;
 }
@@ -74,41 +142,21 @@ button {
 .edit_task_container_hidden {
   visibility: hidden;
 }
-
 a {
   padding: 1rem 0 1rem 0;
 }
-
 #project_tasks_container {
   display: flex;
-  flex-flow: row wrap;
-  justify-content: space-evenly;
-  background-color: rgb(127, 150, 255);
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color_2);
 }
-
 .todo_task {
-  flex: 1;
+  flex: 0 1 50%;
+  max-width: max-content;
+  padding: 0.4rem;
   margin: 0.2rem;
-  max-width: 60%;
-  background-color: rgb(155, 182, 184);
-}
-table,
-tr,
-th,
-td {
-  empty-cells: hide;
-  margin: 0.2rem;
-  padding: 0.2rem;
-}
-table,
-td {
-  background-color: rgb(187, 33, 33);
-}
-th {
-  box-shadow: 1px 1px 4px black;
-  border-radius: 0rem;
-  background-color: rgb(138, 0, 180);
-}
-td {
-  background-color: blanchedalmond;
+  background-color: var(--color_4);
+  box-shadow: 0px 0px 6px rgba(11, 27, 37, 0.473);
 }
