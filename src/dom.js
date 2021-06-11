@@ -18,42 +18,27 @@ const dom = {
     const singleTask = document.createElement("div");
     singleTask.className = "todo_task";
     singleTask.dataset.task_id = taskID;
-    singleTask.innerHTML = `        
-            <table>
-              <tr>
-                <th colspan="2" id="task_title">
-                ${currentTask.title}
-                <td>
-                <button class="edit_button">Edit</button>
-                <button class="delete_button">Delete</button></th>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="3" id="task_desc">
-                  ${currentTask.desc}  
-                </td>                
-              </tr>
-              <tr>
-                <td id="date_made">Created on ${currentTask.dateMade}</td>
-                <td>
-                Status: ${currentTask.status ? "Done!" : "Pending"}
-                ${
-                  currentTask.status
-                    ? " "
-                    : `<button class="done_button">Done</button>`
-                }         
-                </td>
-                <th id="date_due">
-                  Due on: ${currentTask.dateDue}
-                </th>
-              </tr>
-            </table>        
-          `;
+    singleTask.innerHTML = `
+    <div id="title_div">
+      <h3 id="task_title">
+      ${currentTask.title}
+      </h3>
+        <button class="edit_button">Edit</button>
+        <button class="delete_button">Delete</button>
+    </div>
+    <p id="task_desc">${currentTask.desc}</p>
+    <div id='status_div'>
+      <p>Status: ${currentTask.status ? "Done!" : "Pending"}</p> ${
+      currentTask.status ? " " : `<button class="done_button">Done</button>`
+    }
+    </div>
+    <h5 id="date_made">Created: ${currentTask.dateMade}</h5>
+    <h4 id="date_due">Due: ${currentTask.dateDue}</h4>
+    `;
     if (!currentTask.status) {
       singleTask
         .querySelector(".done_button")
         .addEventListener("click", (e) => {
-          console.log(Project.myProjects[projectID].taskList[taskID].status);
           Project.myProjects[projectID].taskList[taskID].status = true;
           e.target.parentNode.innerHTML = "Status: Done!";
           e.target.remove();
@@ -83,7 +68,7 @@ const dom = {
   },
   makeProjectDeleteButton: (id) => {
     const deleteButton = document.createElement("button");
-    deleteButton.innerText = "X";
+    deleteButton.innerText = "del";
     deleteButton.id = "project_delete_button";
     deleteButton.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -117,6 +102,7 @@ const dom = {
     dom.projectAddForm.classList.toggle("add_project_container_hidden");
   },
   taskFormVisibility: () => {
+    dom.addTaskForm.querySelector("#dateDue_form").valueAsDate = new Date();
     dom.addTaskForm.classList.toggle("add_task_container_hidden");
   },
   taskEditVisibility: () => {

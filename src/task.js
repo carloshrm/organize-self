@@ -1,5 +1,4 @@
-import { add, formatISO, toDate, parse } from "date-fns";
-import { el } from "date-fns/locale";
+import { formatISO } from "date-fns";
 import dom from "./dom.js";
 import Project from "./project.js";
 
@@ -59,5 +58,4 @@ class Task {
     }
   }
 }
-
 export default Task;

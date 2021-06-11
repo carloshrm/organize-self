@@ -18,10 +18,14 @@ class Project {
     let defaultTask = new Task(
       date,
       "Example",
-      "Type in a description of what your task entails.",
+      "A description of what you're supposed to do.",
       0
     );
+
     project.addTask(defaultTask);
+    project.addTask(defaultTask);
+    project.addTask(defaultTask);
+
     Project.myProjects[project.id] = project;
     dom.displayProjectTab(project);
     dom.projectFormVisibility();
@@ -31,8 +35,13 @@ class Project {
   }
   static swapProject(e) {
     e.preventDefault();
-    console.log("here");
+    if (Project.activeProject !== 0) {
+      document
+        .querySelector(`[data-project="${Project.activeProject}"`)
+        .classList.toggle("project_tab_selected");
+    }
     Project.activeProject = this.dataset.project;
+    this.classList.toggle("project_tab_selected");
     dom.displayProjectContents(this.dataset.project);
   }
 }
