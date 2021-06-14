@@ -1,4 +1,4 @@
-import dom from "./dom.js";
+import { dom, displayProjectContents, displayProjectTab, projectFormVisibility } from "./dom.js";
 import Task from "./task.js";
 
 class Project {
@@ -15,20 +15,12 @@ class Project {
     if (name === undefined) name = dom.projectAddNameIn.value;
     let project = new Project(name);
     const date = Date.now();
-    let defaultTask = new Task(
-      date,
-      "Example",
-      "A description of what you're supposed to do.",
-      0
-    );
+    let defaultTask = new Task(date, "Example", "A description of what you're supposed to do.", 0);
 
     project.addTask(defaultTask);
-    project.addTask(defaultTask);
-    project.addTask(defaultTask);
-
     Project.myProjects[project.id] = project;
-    dom.displayProjectTab(project);
-    dom.projectFormVisibility();
+    displayProjectTab(project);
+    projectFormVisibility();
   }
   addTask(task) {
     this.taskList.push(task);
@@ -42,7 +34,7 @@ class Project {
     }
     Project.activeProject = this.dataset.project;
     this.classList.toggle("project_tab_selected");
-    dom.displayProjectContents(this.dataset.project);
+    displayProjectContents(this.dataset.project);
   }
 }
 export default Project;

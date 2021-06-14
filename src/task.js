@@ -1,11 +1,16 @@
-import { formatISO } from "date-fns";
-import dom from "./dom.js";
+import { format, formatISO } from "date-fns";
 import Project from "./project.js";
+import {
+  dom,
+  displayProjectContents,
+  taskFormVisibility,
+  taskEditVisibility,
+  dateFormMinimum,
+} from "./dom.js";
 
 class Task {
   constructor(dateDue, title, desc, priority, id) {
-    if (dateDue !== "" && dateDue !== undefined)
-      dateDue = formatISO(dateDue, { representation: "date" });
+    if (dateDue === undefined) dateDue = Date.now();
     this.dateDue = dateDue;
     this.title = title;
     this.desc = desc;
@@ -13,6 +18,7 @@ class Task {
     this.status = false;
     this.dateMade = formatISO(Date.now(), { representation: "date" });
     this.id = 0;
+    console.log(dateDue);
   }
   static makeNewTask(e) {
     e.preventDefault();
@@ -23,16 +29,25 @@ class Task {
         alert("Fill in all fields to create a task.");
         return;
       }
+      if (form[i].name === "dateDue") {
+        task[form[i].name] = Date.parse(form[i].value);
+        continue;
+      }
       task[form[i].name] = form[i].value;
     }
-    dom.taskFormVisibility();
+    taskFormVisibility();
     form.forEach((x) => (x.value = ""));
     Project.myProjects[Project.activeProject].addTask(task);
-    dom.displayProjectContents(Project.activeProject);
+    displayProjectContents(Project.activeProject);
   }
   static editTask(taskObject) {
-    dom.taskEditVisibility();
+    taskEditVisibility();
     dom.taskEditForm.querySelectorAll("input").forEach((x) => {
+      if (x.name === "dateDue") {
+        dateFormMinimum(x);
+        x.value = format(taskObject[x.name], "yyyy-MM-dd'T'hh:mm");
+        return;
+      }
       if (x.type === "checkbox") {
         x.checked = taskObject[x.name];
       } else {
@@ -42,8 +57,11 @@ class Task {
     dom.taskEditConfirm.addEventListener("click", updateTask);
     function updateTask() {
       dom.taskEditForm.querySelectorAll("input").forEach((x) => {
-        console.log(x.value);
         if (x.name === "dateMade") return;
+        if (x.name === "dateDue") {
+          taskObject[x.name] = Date.parse(x.value);
+          return;
+        }
         if (x.type !== "checkbox") {
           taskObject[x.name] = x.value;
           x.value = "";
@@ -51,9 +69,9 @@ class Task {
           taskObject[x.name] = x.checked;
           x.checked = false;
         }
-        dom.displayProjectContents(Project.activeProject);
+        displayProjectContents(Project.activeProject);
       });
-      dom.taskEditVisibility();
+      taskEditVisibility();
       dom.taskEditConfirm.removeEventListener("click", updateTask);
     }
   }
