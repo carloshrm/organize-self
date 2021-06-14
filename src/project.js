@@ -1,4 +1,4 @@
-import { dom, displayProjectContents, displayProjectTab, projectFormVisibility } from "./dom.js";
+import { dom, displayProjectContents, refreshList, projectFormVisibility } from "./dom.js";
 import Task from "./task.js";
 
 class Project {
@@ -15,11 +15,12 @@ class Project {
     if (name === undefined) name = dom.projectAddNameIn.value;
     let project = new Project(name);
     const date = Date.now();
-    let defaultTask = new Task(date, "Example", "A description of what you're supposed to do.", 0);
+    let defaultTask = new Task(date, "Example", "A description of your upcoming task.", 0);
 
     project.addTask(defaultTask);
     Project.myProjects[project.id] = project;
-    displayProjectTab(project);
+    Project.activeProject = project.id;
+    refreshList();
     projectFormVisibility();
   }
   addTask(task) {
@@ -27,11 +28,12 @@ class Project {
   }
   static swapProject(e) {
     e.preventDefault();
-    if (Project.activeProject !== 0) {
-      document
-        .querySelector(`[data-project="${Project.activeProject}"`)
-        .classList.toggle("project_tab_selected");
-    }
+    console.log(this);
+    // if (Project.activeProject !== 0) {
+    //   document
+    //     .querySelector(`[data-project="${Project.activeProject}"`)
+    //     .classList.toggle("project_tab_selected");
+    // }
     Project.activeProject = this.dataset.project;
     this.classList.toggle("project_tab_selected");
     displayProjectContents(this.dataset.project);
