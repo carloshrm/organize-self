@@ -33,22 +33,10 @@
     </div>
     <div id="add_task_container" class="add_task_container_hidden">
       <p>Add a new task:</p>
-      <input
-        type="text"
-        name="title"
-        id="title_form"
-        placeholder="Task Title"
-        required
-      />
-      <input
-        type="text"
-        name="desc"
-        id="desc_form"
-        placeholder="Task Description"
-        required
-      />
+      <input type="text" name="title" id="title_form" placeholder="Task Title" required />
+      <input type="text" name="desc" id="desc_form" placeholder="Task Description" required />
       <label for="dateDue_form">Date Due: </label>
-      <input type="date" name="dateDue" id="dateDue_form" required />
+      <input type="datetime-local" name="dateDue" id="dateDue_form" required />
       <button id="confirm_task">Add</button>
       <button id="cancel_task">Cancel</button>
     </div>
@@ -60,7 +48,7 @@
       <label for="dateMade">Date Made:</label>
       <input type="date" name="dateMade" disabled />
       <label for="dateDue">Date Due:</label>
-      <input type="date" name="dateDue" />
+      <input type="datetime-local" name="dateDue" />
       <label for="status">Status: </label>
       <input type="checkbox" name="status" />
       <button id="confirm_changes">OK</button>
