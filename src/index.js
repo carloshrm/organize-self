@@ -4,6 +4,8 @@ import {
   projectFormVisibility,
   taskFormVisibility,
   taskEditVisibility,
+  swapProject,
+  parseProjects,
 } from "./dom.js";
 import Task from "./task.js";
 import Project from "./project.js";
@@ -16,9 +18,11 @@ import Project from "./project.js";
   document.getElementById("cancel_project").addEventListener("click", projectFormVisibility);
   document.getElementById("confirm_task").addEventListener("click", Task.makeNewTask);
   document.getElementById("cancel_task").addEventListener("click", taskFormVisibility);
-  dom.projectShelf
-    .querySelectorAll("p")
-    .forEach((a) => a.addEventListener("click", Project.swapProject));
+  dom.projectShelf.querySelectorAll("p").forEach((a) => a.addEventListener("click", swapProject));
   document.getElementById("cancel_changes").addEventListener("click", taskEditVisibility);
   Project.newProject("", "Project Example");
+  // if (localStorage.getItem("projects") === null) {
+  // } else {
+  //   parseProjects();
+  // }
 })();

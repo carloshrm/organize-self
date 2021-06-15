@@ -64,7 +64,7 @@ function makeProjectTab(projectObject) {
   projTab.className = "project_tab";
   projTab.dataset.project = projectObject.id;
   projTab.innerHTML = `<p>${projectObject.projectName}</p>`;
-  projTab.addEventListener("click", Project.swapProject);
+  projTab.addEventListener("click", swapProject);
   projTab.appendChild(makeProjectDeleteButton(projectObject.id));
   dom.projectShelf.appendChild(projTab);
   dom.projectAddNameIn.value = "";
@@ -79,7 +79,7 @@ function displayProjectContents(projectID) {
 }
 function makeProjectDeleteButton(id) {
   const deleteButton = document.createElement("button");
-  deleteButton.innerText = "del";
+  deleteButton.innerText = " x ";
   deleteButton.id = "project_delete_button";
   deleteButton.addEventListener("click", (e) => {
     e.stopPropagation();
@@ -98,7 +98,42 @@ function refreshList() {
   for (const key in Project.myProjects) {
     makeProjectTab(Project.myProjects[key]);
   }
+  console.log(Project.myProjects);
+  localStorage.setItem("projects", JSON.stringify(Project.myProjects));
+  parseProjects();
+  // console.log(Project.myProjects);
   dom.projectShelf.querySelector(`[data-project="${Project.activeProject}"`).click();
+}
+
+function parseProjects() {
+  const storageProjects = JSON.parse(localStorage.getItem("projects"));
+
+  for (const storedProjIndex in storageProjects) {
+    //make project, set name
+    const project = new Project(storageProjects[storedProjIndex].projectName);
+    //make tasks
+    storageProjects[storedProjIndex].taskList.forEach((taskObject) => {
+      const storedTask = new Task();
+      for (const taskDataKey in taskObject) {
+        storedTask[taskDataKey] = taskObject[taskDataKey];
+      }
+      project.taskList[storedTask.id] = storedTask;
+    });
+    project.id = +storedProjIndex;
+    console.log();
+    console.log(Project.myProjects[project.id] == project);
+    // Project.myProjects[storageProjects[key].id] = project;
+  }
+}
+
+function swapProject(e) {
+  e.preventDefault();
+  dom.projectShelf
+    .querySelector(`[data-project="${Project.activeProject}"`)
+    .classList.toggle("project_tab_selected");
+  this.classList.add("project_tab_selected");
+  Project.activeProject = this.dataset.project;
+  displayProjectContents(this.dataset.project);
 }
 
 function projectFormVisibility() {
@@ -122,8 +157,10 @@ export {
   appendTask,
   dateFormMinimum,
   displayProjectContents,
+  parseProjects,
   projectFormVisibility,
   refreshList,
+  swapProject,
   taskFormVisibility,
   taskEditVisibility,
 };

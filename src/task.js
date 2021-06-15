@@ -18,7 +18,6 @@ class Task {
     this.status = false;
     this.dateMade = formatISO(Date.now(), { representation: "date" });
     this.id = 0;
-    console.log(dateDue);
   }
   static makeNewTask(e) {
     e.preventDefault();
