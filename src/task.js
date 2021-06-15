@@ -9,7 +9,7 @@ import {
 } from "./dom.js";
 
 class Task {
-  constructor(dateDue, title, desc, priority, id) {
+  constructor(dateDue, title, desc, priority) {
     if (dateDue === undefined) dateDue = Date.now();
     this.dateDue = dateDue;
     this.title = title;
@@ -17,7 +17,6 @@ class Task {
     this.priority = priority;
     this.status = false;
     this.dateMade = formatISO(Date.now(), { representation: "date" });
-    this.id = 0;
   }
   static makeNewTask(e) {
     e.preventDefault();

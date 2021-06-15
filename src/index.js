@@ -20,9 +20,10 @@ import Project from "./project.js";
   document.getElementById("cancel_task").addEventListener("click", taskFormVisibility);
   dom.projectShelf.querySelectorAll("p").forEach((a) => a.addEventListener("click", swapProject));
   document.getElementById("cancel_changes").addEventListener("click", taskEditVisibility);
-  Project.newProject("", "Project Example");
-  // if (localStorage.getItem("projects") === null) {
-  // } else {
-  //   parseProjects();
-  // }
+  if (localStorage.getItem("projectObject") === null) {
+    Project.newProject("", "Project Example");
+    projectFormVisibility();
+  } else {
+    parseProjects();
+  }
 })();

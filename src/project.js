@@ -1,4 +1,4 @@
-import { dom, displayProjectContents, refreshList, projectFormVisibility } from "./dom.js";
+import { dom, refreshList, projectFormVisibility } from "./dom.js";
 import Task from "./task.js";
 
 class Project {
@@ -16,8 +16,6 @@ class Project {
     let project = new Project(name);
     const date = Date.now();
     let defaultTask = new Task(date, "Example", "A description of your upcoming task.", 0);
-    project.addTask(defaultTask);
-    project.addTask(defaultTask);
     project.addTask(defaultTask);
     Project.myProjects[project.id] = project;
     Project.activeProject = project.id;

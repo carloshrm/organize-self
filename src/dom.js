@@ -76,6 +76,10 @@ function displayProjectContents(projectID) {
   projectObject.taskList.forEach((x, ind) => {
     appendTask(x, ind, projectID);
   });
+  // call full storage set here
+  localStorage.setItem("projectObject", JSON.stringify(Project.myProjects));
+  localStorage.setItem("activeProject", Project.activeProject);
+  localStorage.setItem("idTracker", Project.projectIDTracker);
 }
 function makeProjectDeleteButton(id) {
   const deleteButton = document.createElement("button");
@@ -98,32 +102,30 @@ function refreshList() {
   for (const key in Project.myProjects) {
     makeProjectTab(Project.myProjects[key]);
   }
-  console.log(Project.myProjects);
-  localStorage.setItem("projects", JSON.stringify(Project.myProjects));
-  parseProjects();
-  // console.log(Project.myProjects);
   dom.projectShelf.querySelector(`[data-project="${Project.activeProject}"`).click();
 }
 
 function parseProjects() {
-  const storageProjects = JSON.parse(localStorage.getItem("projects"));
-
+  const storageProjects = JSON.parse(localStorage.getItem("projectObject"));
   for (const storedProjIndex in storageProjects) {
     //make project, set name
     const project = new Project(storageProjects[storedProjIndex].projectName);
     //make tasks
-    storageProjects[storedProjIndex].taskList.forEach((taskObject) => {
+    storageProjects[storedProjIndex].taskList.forEach((taskObject, i) => {
       const storedTask = new Task();
       for (const taskDataKey in taskObject) {
         storedTask[taskDataKey] = taskObject[taskDataKey];
       }
-      project.taskList[storedTask.id] = storedTask;
+      project.taskList[i] = storedTask;
     });
     project.id = +storedProjIndex;
-    console.log();
     console.log(Project.myProjects[project.id] == project);
-    // Project.myProjects[storageProjects[key].id] = project;
+    Project.myProjects[project.id] = project;
+    Project.activeProject = project.id;
   }
+  Project.activeProject = localStorage.getItem("activeProject");
+  Project.projectIDTracker = localStorage.getItem("idTracker");
+  refreshList();
 }
 
 function swapProject(e) {
