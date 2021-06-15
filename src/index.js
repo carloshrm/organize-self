@@ -5,8 +5,8 @@ import {
   taskFormVisibility,
   taskEditVisibility,
   swapProject,
-  parseProjects,
 } from "./dom.js";
+import { parseProjects } from "./parseProjects";
 import Task from "./task.js";
 import Project from "./project.js";
 

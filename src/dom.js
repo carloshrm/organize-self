@@ -1,6 +1,6 @@
 import Project from "./project.js";
 import Task from "./task.js";
-import { format, formatDistanceToNow, formatISO, differenceInDays } from "date-fns";
+import { format, formatDistanceToNow, formatISO } from "date-fns";
 
 const dom = {
   projectShelf: document.getElementById("project_list"),
@@ -49,6 +49,7 @@ function makeTaskButtons(currentTask, singleTask, projectID, taskID) {
       Project.myProjects[projectID].taskList[taskID].status = true;
       e.target.parentNode.innerHTML = "Status: Done!";
       e.target.remove();
+      displayProjectContents(projectID);
     });
   }
   singleTask.querySelector(".delete_button").addEventListener("click", (e) => {
@@ -105,29 +106,6 @@ function refreshList() {
   dom.projectShelf.querySelector(`[data-project="${Project.activeProject}"`).click();
 }
 
-function parseProjects() {
-  const storageProjects = JSON.parse(localStorage.getItem("projectObject"));
-  for (const storedProjIndex in storageProjects) {
-    //make project, set name
-    const project = new Project(storageProjects[storedProjIndex].projectName);
-    //make tasks
-    storageProjects[storedProjIndex].taskList.forEach((taskObject, i) => {
-      const storedTask = new Task();
-      for (const taskDataKey in taskObject) {
-        storedTask[taskDataKey] = taskObject[taskDataKey];
-      }
-      project.taskList[i] = storedTask;
-    });
-    project.id = +storedProjIndex;
-    console.log(Project.myProjects[project.id] == project);
-    Project.myProjects[project.id] = project;
-    Project.activeProject = project.id;
-  }
-  Project.activeProject = localStorage.getItem("activeProject");
-  Project.projectIDTracker = localStorage.getItem("idTracker");
-  refreshList();
-}
-
 function swapProject(e) {
   e.preventDefault();
   dom.projectShelf
@@ -154,12 +132,12 @@ function dateFormMinimum(form) {
   if (form === undefined) form = document.getElementById("dateDue_form");
   form.min = format(Date.now(), "yyyy-MM-dd'T'hh:mm");
 }
+
 export {
   dom,
   appendTask,
   dateFormMinimum,
   displayProjectContents,
-  parseProjects,
   projectFormVisibility,
   refreshList,
   swapProject,
