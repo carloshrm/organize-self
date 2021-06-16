@@ -67,7 +67,7 @@ function setTaskButtonsListeners(currentTask, singleTask, projectID, taskID) {
       displayProjectContents(projectID);
     });
   }
-  singleTask.querySelector(".delete_button").addEventListener("click", (e) => {
+  singleTask.querySelector(".delete_button").addEventListener("click", () => {
     Project.myProjects[projectID].taskList.splice(taskID, 1);
     displayProjectContents(projectID);
   });
@@ -117,7 +117,7 @@ function makeProjectDeleteButton(id) {
 
 function findActiveFallback(id) {
   let tracker = id;
-  const direction = true;
+  let direction = true;
   let foundNext = true;
   while (foundNext) {
     if (tracker in Project.myProjects) {
@@ -126,7 +126,7 @@ function findActiveFallback(id) {
     }
     direction ? tracker-- : tracker++;
     if (tracker === 0) {
-      direction = true;
+      direction = !direction;
       tracker = id;
     }
   }

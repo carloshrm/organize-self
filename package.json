@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/carloshrm/organize-self#readme",
   "devDependencies": {
+    "eslint": "^7.28.0",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0"
   },
