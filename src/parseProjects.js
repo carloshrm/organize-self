@@ -33,13 +33,6 @@ function storageSet() {
   localStorage.setItem("idTracker", Project.projectIDTracker);
 }
 
-function storageCheck() {
-  if (localStorage.getItem("projectObject") === null) {
-    Project.newProject("", "Project Example");
-    projectFormVisibility();
-  } else {
-    parseProjects();
-  }
-}
+function storageCheck() {}
 
 export { parseProjects, storageSet, storageCheck };

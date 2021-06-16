@@ -1,8 +1,13 @@
-import { storageCheck } from "./parseProjects";
-import Task from "./task.js";
+import { projectFormVisibility } from "./dom";
+import { parseProjects } from "./parseProjects";
 import Project from "./project";
-import { dom } from "./dom";
+import Task from "./task";
 
 (() => {
-  storageCheck();
+  if (localStorage.getItem("projectObject") === null) {
+    Project.newProject("", "Project Example");
+    projectFormVisibility();
+  } else {
+    parseProjects();
+  }
 })();
