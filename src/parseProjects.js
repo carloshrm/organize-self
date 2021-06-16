@@ -1,6 +1,6 @@
 import Project from "./project.js";
 import Task from "./task.js";
-import { refreshList } from "./dom";
+import { projectFormVisibility, refreshList } from "./dom";
 
 function parseProjects() {
   const storageProjects = JSON.parse(localStorage.getItem("projectObject"));
@@ -27,4 +27,19 @@ function parseProjects() {
   refreshList();
 }
 
-export { parseProjects };
+function storageSet() {
+  localStorage.setItem("projectObject", JSON.stringify(Project.myProjects));
+  localStorage.setItem("activeProject", Project.activeProject);
+  localStorage.setItem("idTracker", Project.projectIDTracker);
+}
+
+function storageCheck() {
+  if (localStorage.getItem("projectObject") === null) {
+    Project.newProject("", "Project Example");
+    projectFormVisibility();
+  } else {
+    parseProjects();
+  }
+}
+
+export { parseProjects, storageSet, storageCheck };

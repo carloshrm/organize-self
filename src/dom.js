@@ -1,6 +1,7 @@
 import Project from "./project.js";
 import Task from "./task.js";
 import { format, formatDistanceToNow, formatISO } from "date-fns";
+import { storageSet } from "./parseProjects.js";
 
 const dom = {
   projectShelf: document.getElementById("project_list"),
@@ -16,6 +17,19 @@ const dom = {
   taskEditForm: document.getElementById("edit_task_container"),
   taskEditConfirm: document.getElementById("confirm_changes"),
 };
+
+(function eventListeners() {
+  dateFormMinimum();
+  document.getElementById("reset_button").addEventListener("click", resetToDefault);
+  document.getElementById("add_project_button").addEventListener("click", projectFormVisibility);
+  document.getElementById("add_task_button").addEventListener("click", taskFormVisibility);
+  document.getElementById("confirm_project").addEventListener("click", Project.newProject);
+  document.getElementById("cancel_project").addEventListener("click", projectFormVisibility);
+  document.getElementById("confirm_task").addEventListener("click", Task.makeNewTask);
+  document.getElementById("cancel_task").addEventListener("click", taskFormVisibility);
+  dom.projectShelf.querySelectorAll("p").forEach((a) => a.addEventListener("click", swapProject));
+  document.getElementById("cancel_changes").addEventListener("click", taskEditVisibility);
+})();
 
 function appendTask(currentTask, taskID, projectID) {
   const singleTask = document.createElement("div");
@@ -40,10 +54,11 @@ function appendTask(currentTask, taskID, projectID) {
       representation: "date",
     })} ( in ${formatDistanceToNow(currentTask.dateDue)} )</h4>
     `;
-  makeTaskButtons(currentTask, singleTask, projectID, taskID);
+  setTaskButtonsListeners(currentTask, singleTask, projectID, taskID);
   dom.taskShelf.appendChild(singleTask);
 }
-function makeTaskButtons(currentTask, singleTask, projectID, taskID) {
+
+function setTaskButtonsListeners(currentTask, singleTask, projectID, taskID) {
   if (!currentTask.status) {
     singleTask.querySelector(".done_button").addEventListener("click", (e) => {
       Project.myProjects[projectID].taskList[taskID].status = true;
@@ -61,7 +76,7 @@ function makeTaskButtons(currentTask, singleTask, projectID, taskID) {
   });
 }
 function makeProjectTab(projectObject) {
-  let projTab = document.createElement("div");
+  const projTab = document.createElement("div");
   projTab.className = "project_tab";
   projTab.dataset.project = projectObject.id;
   projTab.innerHTML = `<p>${projectObject.projectName}</p>`;
@@ -77,10 +92,7 @@ function displayProjectContents(projectID) {
   projectObject.taskList.forEach((x, ind) => {
     appendTask(x, ind, projectID);
   });
-  // call full storage set here
-  localStorage.setItem("projectObject", JSON.stringify(Project.myProjects));
-  localStorage.setItem("activeProject", Project.activeProject);
-  localStorage.setItem("idTracker", Project.projectIDTracker);
+  storageSet();
 }
 function makeProjectDeleteButton(id) {
   const deleteButton = document.createElement("button");
@@ -133,6 +145,14 @@ function dateFormMinimum(form) {
   form.min = format(Date.now(), "yyyy-MM-dd'T'hh:mm");
 }
 
+function resetToDefault() {
+  const message = "This will remove all projects and tasks. Are you sure you'd like to reset? ";
+  if (confirm(message)) {
+    localStorage.clear();
+    location.reload();
+  }
+}
+
 export {
   dom,
   appendTask,
@@ -140,6 +160,7 @@ export {
   displayProjectContents,
   projectFormVisibility,
   refreshList,
+  resetToDefault,
   swapProject,
   taskFormVisibility,
   taskEditVisibility,

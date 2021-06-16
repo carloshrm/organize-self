@@ -27,7 +27,6 @@ body {
   /* font-family: 'Caveat', cursive;
 font-family: 'Varela Round', sans-serif; */
   background-color: var(--color_2);
-  transition: all 1s;
 }
 
 h3 {
@@ -122,7 +121,6 @@ h5 {
   padding: 0.2rem 0;
   background-color: var(--color_3);
 }
-#add_project_container,
 #add_task_container,
 #edit_task_container {
   position: absolute;
@@ -138,10 +136,16 @@ h5 {
   min-width: max-content;
   max-width: 10%;
   border-radius: 1rem;
-  background-color: #d0c3bd;
+  background-color: var(--color_1);
+}
+#add_project_container {
+  border-bottom: 4px solid var(--color_5);
+  padding: 0.4rem 0 0.5rem 1rem;
+  background-color: var(--color_3);
+  overflow: hidden;
 }
 .add_project_container_hidden {
-  visibility: hidden;
+  display: none;
 }
 .add_task_container_hidden {
   visibility: hidden;
@@ -166,4 +170,10 @@ a {
   margin: 0.2rem;
   background-color: var(--color_4);
   box-shadow: 0px 0px 6px rgba(11, 27, 37, 0.473);
+}
+
+#reset_button {
+  position: fixed;
+  margin: 0 2rem;
+  font-size: 10px;
 }
