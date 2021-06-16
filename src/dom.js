@@ -117,7 +117,6 @@ function findActiveFallback(id) {
   const direction = true;
   let foundNext = true;
   while (foundNext) {
-    console.log("here");
     if (tracker in Project.myProjects) {
       foundNext = false;
       return tracker;
