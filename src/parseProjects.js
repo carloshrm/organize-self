@@ -31,7 +31,6 @@ function storageSet() {
   localStorage.setItem("projectObject", JSON.stringify(Project.myProjects));
   localStorage.setItem("activeProject", Project.activeProject);
   localStorage.setItem("idTracker", Project.projectIDTracker);
-  console.log("here");
 }
 
 export { parseProjects, storageSet };

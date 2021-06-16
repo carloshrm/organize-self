@@ -11,14 +11,20 @@ class Project {
     this.id = Project.projectIDTracker;
   }
   static newProject(e, name) {
-    Project.projectIDTracker++;
-    if (name === undefined) name = dom.projectAddNameIn.value;
+    if (name === undefined) {
+      if (dom.projectAddNameIn.value === "") {
+        alert("Write a name for your project.");
+        return;
+      }
+      name = dom.projectAddNameIn.value;
+    }
     let project = new Project(name);
     const date = Date.now();
     let defaultTask = new Task(date, "Example", "A description of your upcoming task.", 0);
     project.addTask(defaultTask);
     Project.myProjects[project.id] = project;
     Project.activeProject = project.id;
+    Project.projectIDTracker++;
     refreshList();
     projectFormVisibility();
   }

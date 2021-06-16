@@ -105,11 +105,31 @@ function makeProjectDeleteButton(id) {
       confirm("Are you sure you want to delete this project and all its tasks?")
     ) {
       delete Project.myProjects[id];
+      if (Project.activeProject == id) Project.activeProject = findActiveFallback(id);
       refreshList();
     }
   });
   return deleteButton;
 }
+
+function findActiveFallback(id) {
+  let tracker = id;
+  const direction = true;
+  let foundNext = true;
+  while (foundNext) {
+    console.log("here");
+    if (tracker in Project.myProjects) {
+      foundNext = false;
+      return tracker;
+    }
+    direction ? tracker-- : tracker++;
+    if (tracker === 0) {
+      direction = true;
+      tracker = id;
+    }
+  }
+}
+
 function refreshList() {
   dom.projectShelf.innerHTML = "";
   for (const key in Project.myProjects) {
