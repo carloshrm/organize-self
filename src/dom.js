@@ -75,6 +75,7 @@ function setTaskButtonsListeners(currentTask, singleTask, projectID, taskID) {
     Task.editTask(currentTask);
   });
 }
+
 function makeProjectTab(projectObject) {
   const projTab = document.createElement("div");
   projTab.className = "project_tab";
@@ -85,6 +86,7 @@ function makeProjectTab(projectObject) {
   dom.projectShelf.appendChild(projTab);
   dom.projectAddNameIn.value = "";
 }
+
 function displayProjectContents(projectID) {
   const projectObject = Project.myProjects[projectID];
   dom.projectTitle.innerText = projectObject.projectName;
@@ -94,6 +96,7 @@ function displayProjectContents(projectID) {
   });
   storageSet();
 }
+
 function makeProjectDeleteButton(id) {
   const deleteButton = document.createElement("button");
   deleteButton.innerText = " x ";
@@ -159,6 +162,7 @@ function taskFormVisibility() {
 function taskEditVisibility() {
   dom.taskEditForm.classList.toggle("edit_task_container_hidden");
 }
+
 function dateFormMinimum(form) {
   if (form === undefined) form = document.getElementById("dateDue_form");
   form.min = format(Date.now(), "yyyy-MM-dd'T'hh:mm");
