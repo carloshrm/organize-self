@@ -11,19 +11,21 @@
     <div id="main_container">
       <div id="project_select">
         <div id="add_project_container" class="add_project_container_hidden">
-          <p>Add a new project:</p>
-          <input
-            type="text"
-            name="project_name_form"
-            id="project_name_form"
-            placeholder="Project Name"
-            required
-          />
-          <button id="confirm_project">Add</button>
-          <button id="cancel_project">Cancel</button>
+          <div id="add_project_form">
+            <p>Add a new project:</p>
+            <input
+              type="text"
+              name="project_name_form"
+              id="project_name_form"
+              placeholder="Project Name"
+              required
+            />
+            <button id="confirm_project">Add</button>
+            <button id="cancel_project">Cancel</button>
+          </div>
+          <button id="add_project_button">Add project</button>
+          <button id="reset_button">Reset</button>
         </div>
-        <button id="add_project_button">Add project</button>
-        <button id="reset_button">Reset</button>
         <div id="project_list"></div>
         <div id="project_header">
           <span id="project_title">Project Title</span>
@@ -33,8 +35,9 @@
       <div id="project_tasks_container"></div>
     </div>
     <div id="add_task_container" class="add_task_container_hidden">
-      <p>Add a new task:</p>
+      <p>Task Name</p>
       <input type="text" name="title" id="title_form" placeholder="Task Title" required />
+      <p>Task Description</p>
       <input type="text" name="desc" id="desc_form" placeholder="Task Description" required />
       <label for="dateDue_form">Date Due: </label>
       <input type="datetime-local" name="dateDue" id="dateDue_form" required />

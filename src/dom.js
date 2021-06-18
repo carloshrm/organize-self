@@ -7,7 +7,7 @@ const dom = {
   projectShelf: document.getElementById("project_list"),
   taskShelf: document.getElementById("project_tasks_container"),
   projectTaskContainer: document.getElementById("project_container"),
-  projectAddForm: document.getElementById("add_project_container"),
+  projectAddForm: document.getElementById("add_project_form"),
   projectAddNameIn: document.getElementById("project_name_form"),
   projectTitle: document.getElementById("project_title"),
   addTaskButton: document.getElementById("add_task"),
@@ -151,7 +151,7 @@ function swapProject(e) {
 }
 
 function projectFormVisibility() {
-  dom.projectAddForm.classList.toggle("add_project_container_hidden");
+  document.getElementById("add_project_container").classList.toggle("add_project_container_hidden");
 }
 
 function taskFormVisibility() {
