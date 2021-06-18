@@ -24,11 +24,8 @@ body {
   font-size: 16px;
   font-family: "Varela Round", sans-serif;
   color: white;
-  /* font-family: 'Caveat', cursive;
-font-family: 'Varela Round', sans-serif; */
   background-color: var(--color_2);
 }
-
 h3 {
   padding: 0.4rem 1rem;
   width: max-content;
@@ -136,6 +133,8 @@ h5 {
   width: max-content;
   border-radius: 1rem;
   background-color: var(--color_1);
+  overflow: hidden;
+  animation: formWidth 1s ease-in-out 0s 1;
 }
 #add_task_container input,
 #edit_task_container input {
@@ -145,8 +144,6 @@ h5 {
 #add_task_container button,
 #edit_task_container button {
   padding: 0.5rem 1.5rem;
-}
-#description_edit_form {
 }
 
 #add_project_container {
