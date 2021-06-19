@@ -19,7 +19,7 @@ function parseProjects() {
     });
     // set the ID(convert from string)
     project.id = +storedProjIndex;
-    // set the fresh project into the main data object
+    // place the fresh project into the main data object
     Project.myProjects[project.id] = project;
   }
   Project.activeProject = localStorage.getItem("activeProject");
@@ -28,6 +28,7 @@ function parseProjects() {
 }
 
 function storageSet() {
+  // populate the local storage with the information required to preserve data across sessions
   localStorage.setItem("projectObject", JSON.stringify(Project.myProjects));
   localStorage.setItem("activeProject", Project.activeProject);
   localStorage.setItem("idTracker", Project.projectIDTracker);
